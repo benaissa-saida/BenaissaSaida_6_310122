@@ -4,18 +4,15 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
     <title>Fisheye - photographe </title>
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="/index.html" alt="Fisheye Home page">
+        <img src="assets/images/logo.png" class="logo" />
+      </a>
     </header>
-    <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
-    </main>
     <div id="contact_modal">
 			<div class="modal">
 				<header>
@@ -31,6 +28,24 @@
 				</form>
 			</div>
 		</div>
+    <main id="main">
+      <aside class="photograph-header">
+        <div class="photographer__info"></div>
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="photographer__img"></div>
+      </aside>
+      <section>
+        <aside class="filter"></aside>
+        <article class="portfolio"></article>
+      </section>
+    </main>
     <script src="/scripts/utils/contactForm.js"></script>
+    <!--Api-->
+    <script src="scripts/api/Api.js"></script>
+    <!--Factories-->
+    <script src="scripts/factories/Photographer.js"></script>
+    <script src="scripts/factories/media.js"></script>
+    <!--Page-->
+    <script src="scripts/pages/photographer.js"></script>
   </body>
 </html>

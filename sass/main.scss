@@ -1,0 +1,83 @@
+@import "./variables";
+@import "./typography";
+@import "./photographer";
+// @import "./lightbox.scss";
+
+body {
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+.logo {
+    height: 50px;
+    margin-left: 50px;
+}
+
+h1 {
+  color: $secondary-color;
+  margin-right: 100px;
+}
+
+.photographer_section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 100px;
+  article {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    a {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+    }
+    .profile__picture {
+      border-radius: 50%;
+    }
+    .profile__info {
+      text-align: center;
+      &--name {
+        color: $primary-color;
+        font-size: 36px;
+      }
+      &--location {
+        color: $primary-color;
+        font-size: 15px;
+        font-weight: 400;
+        margin: unset;
+      }
+      &--tag {
+        margin: unset;
+        margin-top: 3px;
+        font-size: 13px;
+        font-weight: 400;
+      }
+      &--price {
+        color: $prices-color;
+        font-weight: 400;
+        font-size: 12px;
+        margin: unset;
+        margin-top: 3px;
+      }
+    }
+
+    img {
+      height: 200px;
+      width: 200px;
+    }
+  }
+}
+
+// @import "./tablet-resolution";
+// @import "./mobile-resolution";

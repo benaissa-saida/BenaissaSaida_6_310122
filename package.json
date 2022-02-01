@@ -1,0 +1,22 @@
+{
+  "name": "projet-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benaissa-saida/BenaissaSaida_6_310122.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benaissa-saida/BenaissaSaida_6_310122/issues"
+  },
+  "homepage": "https://github.com/benaissa-saida/BenaissaSaida_6_310122#readme",
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  }
+}
