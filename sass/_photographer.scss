@@ -27,8 +27,6 @@ header {
 
 .photographer__info {
   .profile__info {
-    // text-align: center;
-
     &--name {
       color: $primary-color;
       font-size: 64px;
@@ -101,7 +99,7 @@ header {
   background-color: $primary-bgcolor;
   border-radius: 5px;
   cursor: pointer;
-  &:hover{
+  &:hover, &:focus{
     background-color: $secondary-bgcolor;
   }
 }
