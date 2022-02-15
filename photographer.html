@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -9,21 +9,33 @@
   </head>
   <body>
     <header>
-      <a href="/index.html" alt="Fisheye Home page">
-        <img src="assets/images/logo.png" class="logo" />
+      <a href="/index.html" alt="Fisheye Home page" title="logo">
+        <img src="assets/images/logo.png" class="logo" alt="logo site"/>
       </a>
     </header>
     <div id="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" onclick="closeModal()"  alt="croix retour"/>
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="firstName">Prénom</label>
+						<input type="text" id="firstName" minlength="2" required aria-required=true/>
 					</div>
+          <div>
+						<label for="lastName">Nom</label>
+						<input type="text" id="lastName" minlength="2" required aria-required=true/>
+					</div>
+          <div>
+						<label for="email">Email</label>
+						<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Invalid email address" required aria-required=true/>
+					</div>
+          <div>
+						<label for="message">Votre Message</label>
+						<textarea type="text" id="message"  minlength="4" required aria-required=true></textarea>
+					</div> 
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>
@@ -35,9 +47,18 @@
         <div class="photographer__img"></div>
       </aside>
       <section>
-        <aside class="filter"></aside>
-        <article class="portfolio"></article>
+        <aside class="filter">
+          <label for="filter-select">Trier Par</label>
+          <select name="filter" id="filter-select" class="filter__selected">
+            <option value="date">Date</option>
+            <option value="popularity">Popularité</option>
+            <option value="title">Titre</option>
+          </select>
+        </aside>
+        <article class="portfolio">
+        </article>
       </section>
+      <div class="static-insert"></div>
     </main>
     <script src="/scripts/utils/contactForm.js"></script>
     <!--Api-->

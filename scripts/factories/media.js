@@ -1,5 +1,5 @@
 function mediaFactory(data) {
-  const { image, photographerId, title, video, likes } = data;
+  const { image, photographerId, title, video, likes, id } = data;
 
   const picture = `assets/images/${photographerId}/${image}`;
   const media = `assets/images/${photographerId}/${video}`;
@@ -9,35 +9,42 @@ function mediaFactory(data) {
     img.className = "";
     img.setAttribute("src", picture);
     img.setAttribute("alt", title);
-    return img
+    return img;
   }
 
   function createVideo() {
     const video = document.createElement("video");
     // video.setAttribute('controls', '')
-    const source = document.createElement('source');
+    const source = document.createElement("source");
     source.setAttribute("src", media);
     source.setAttribute("preload", true);
     source.setAttribute("loop", "");
-    video.appendChild(source)
-    return video
+    video.appendChild(source);
+    return video;
   }
 
   function getPortfolioDOM() {
     const figure = document.createElement("figure");
     figure.className = "portfolio__info";
+    figure.tabIndex = 0;
 
     const figcaption = document.createElement("figcaption");
     figcaption.className = "portfolio__info--caption";
     figcaption.textContent = title;
 
-    const like = document.createElement("span");
-    like.textContent = likes;
+    const like = document.createElement('span');
+    like.className = 'portfolio__info--heart'
+    
+    const countLikes = document.createElement('span');
+    countLikes.className = 'heart-count'
+    countLikes.textContent = likes;
 
     const heart = document.createElement("i");
+    heart.tabIndex = 0;
     heart.className = "hearts far fa-heart";
+    heart.ariaLabel = "likes"
 
-    like.appendChild(heart);
+    like.append(countLikes, heart);
     figcaption.append(like);
 
     if (image) {
@@ -47,5 +54,6 @@ function mediaFactory(data) {
     }
     return figure;
   }
+
   return { getPortfolioDOM };
 }
