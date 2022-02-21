@@ -19,7 +19,7 @@
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()"  alt="croix retour"/>
         </header>
-				<form>
+				<form onsubmit="sendForm(event)">
 					<div>
 						<label for="firstName">Prénom</label>
 						<input type="text" id="firstName" minlength="2" required aria-required=true/>
@@ -36,7 +36,7 @@
 						<label for="message">Votre Message</label>
 						<textarea type="text" id="message"  minlength="4" required aria-required=true></textarea>
 					</div> 
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>
@@ -47,20 +47,32 @@
         <div class="photographer__img"></div>
       </aside>
       <section>
-        <aside class="filter">
-          <label for="filter-select">Trier Par</label>
-          <select name="filter" id="filter-select" class="filter__selected">
+        <div class="filter">
+          <p class="filter__by">Trier Par</p>
+          <!-- <select name="filter" id="filter-select" class="filter__selected">
             <option value="date">Date</option>
             <option value="popularity">Popularité</option>
             <option value="title">Titre</option>
-          </select>
-        </aside>
+          </select> -->
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button" aria-haspopup="true">Date</button>
+            <ul class="dropdown-menu" role="listbox" aria-expanded="true">
+              <li role="option" tabindex="0">Date</li>
+              <li role="option" tabindex="0">Popularité</li>
+              <li role="option" tabindex="0">Titre</li>
+            </ul>
+          </div>
+        </div>
         <article class="portfolio">
         </article>
       </section>
       <div class="static-insert"></div>
+      <div class="lightbox"></div>
     </main>
+    <!--Utils-->
+    <script src="/scripts//utils/selectedFilter.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/lighthbox.js"></script>
     <!--Api-->
     <script src="scripts/api/Api.js"></script>
     <!--Factories-->

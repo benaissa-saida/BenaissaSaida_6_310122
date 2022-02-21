@@ -40,7 +40,7 @@ async function displayStaticInsert(portfolio, photographer) {
   totalCount.textContent = totalLikes;
 
   const heart = document.createElement("i");
-  heart.className = "far fa-heart";
+  heart.className = "fas fa-heart";
 
   likes.append(totalCount, heart);
   photographerStaticInsert.append(likes, priceText);
@@ -51,9 +51,7 @@ async function displayStaticInsert(portfolio, photographer) {
 async function addAsFav() {
   this.hearts = document.getElementsByClassName("hearts");
   let likes = document.querySelector(".total-hearts");
-  console.log(likes);
   this.allHearts = [...hearts];
-  console.log(allHearts);
   let totalLikes = this.totalLikes;
 
   allHearts.forEach((heart) => {
