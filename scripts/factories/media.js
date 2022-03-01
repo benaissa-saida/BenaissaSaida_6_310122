@@ -8,6 +8,7 @@ function mediaFactory(data) {
     const img = document.createElement("img");
     img.className = "";
     img.setAttribute("src", picture);
+    img.setAttribute('loading', 'lazy')
     img.setAttribute("alt", title);
     return img;
   }

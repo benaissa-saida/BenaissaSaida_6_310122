@@ -10,6 +10,11 @@ async function displayOnePhotographer(photographer) {
   photographerImg.appendChild(userImg);
 }
 
+async function photographerName(photographer) {
+  const name = document.querySelector(".photographerName");
+  name.textContent = photographer.name;
+}
+
 async function displayMedias(portfolio, photographer) {
   const photographerFolio = document.querySelector(".portfolio");
 
@@ -94,9 +99,13 @@ async function sortData(portfolio) {
   let mediasSortByPopularity = [];
   let mediasSortByTitle = [];
 
-  let selectInput = document.getElementById("filter-select");
+  let buttonDate = document.querySelector("#date");
+  let buttonPopularity = document.querySelector("#popularity");
+  let buttonTitle = document.querySelector("#title");
 
-  const sortByDate = () => {
+  const sortByDate = (e) => {
+    closeDrop();
+    changeOrderTextInOpenedButtonFilter(e);
     if (dateSelected) {
       mediasSortByDate = medias.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
@@ -106,7 +115,10 @@ async function sortData(portfolio) {
       displayMedias(portfolio);
     }
   };
-  const sortByTitle = () => {
+
+  const sortByTitle = (e) => {
+    closeDrop();
+    changeOrderTextInOpenedButtonFilter(e);
     if (titleSelected) {
       mediasSortByTitle = medias.sort((a, b) => {
         return a.title > b.title ? 1 : -1;
@@ -117,7 +129,9 @@ async function sortData(portfolio) {
     }
   };
 
-  const sortByPopularity = () => {
+  const sortByPopularity = (e) => {
+    closeDrop();
+    changeOrderTextInOpenedButtonFilter(e);
     if (popularitySelected) {
       mediasSortByPopularity = medias.sort((a, b) => {
         return b.likes - a.likes;
@@ -128,29 +142,36 @@ async function sortData(portfolio) {
     }
   };
 
-  selectInput.addEventListener("change", function () {
-    if (selectInput.value == "popularity") {
-      sortByPopularity();
-    }
-    if (selectInput.value == "date") {
-      sortByDate();
-    }
-    if (selectInput.value == "title") {
-      sortByTitle();
-    }
+  //event click & keyup
+  buttonDate.addEventListener("click", (e) => {
+    sortByDate(e, buttonDate, buttonTitle, buttonPopularity);
+  });
+  buttonDate.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") sortByDate(e);
   });
 
-  selectInput.addEventListener("keyup", function (e) {
-    if (e.key === "Enter") {
-      if (selectInput.value == "popularity") {
-        sortByPopularity();
-      }
-      if (selectInput.value == "date") {
-        sortByDate();
-      }
-      if (selectInput.value == "title") {
-        sortByTitle();
-      }
+  //event click & keyup
+  buttonTitle.addEventListener("click", (e) => {
+    sortByTitle(e, buttonDate, buttonTitle, buttonPopularity);
+  });
+  buttonTitle.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") sortByTitle(e);
+  });
+
+  //event click & keyup
+  buttonPopularity.addEventListener("click", (e, buttonPopularity) => {
+    sortByPopularity(e, buttonDate, buttonTitle, buttonPopularity);
+  });
+  buttonPopularity.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") sortByPopularity(e);
+  });
+}
+
+function closeModalOnKeyUp() {
+  document.addEventListener("keyup", (e) => {
+    // console.log(e);
+    if (e.key == "Escape") {
+      modal.style.display = "none";
     }
   });
 }
@@ -170,6 +191,8 @@ async function init() {
   const portfolio = medias.filter((e) => e.photographerId == photographerID);
 
   displayOnePhotographer(photographer);
+  photographerName(photographer);
+  closeModalOnKeyUp();
   displayStaticInsert(portfolio, photographer);
   sortData(portfolio);
   displayMedias(portfolio, photographer);

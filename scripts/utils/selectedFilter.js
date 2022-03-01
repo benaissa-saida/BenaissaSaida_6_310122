@@ -1,97 +1,61 @@
-function DropDown(dropDown) {
-  const [toggler, menu] = dropDown.children;
+const wrapper = document.querySelector(".wrapper");
+const toggle = document.querySelector(".wrapper__toggle");
+const arrowUp = document.querySelector(".arrowUp");
+const resultsList = document.getElementById("filter-list");
+let isDropDownOpen = false;
+let dateSelected = true;
+let popularitySelected = false;
+let titeSelected = false;
 
-  const handleClickOut = (e) => {
-    if (!dropDown) {
-      return document.removeEventListener("click", handleClickOut);
+const openDrop = () => {
+  isDropDownOpen = true;
+  arrowUp.classList.remove("hide");
+  wrapper.setAttribute("aria-expanded", "true");
+  toggle.classList.add("hide");
+  resultsList.classList.add("show");
+};
+
+const closeDrop = () => {
+  isDropDownOpen = false;
+  arrowUp.classList.add("hide");
+  toggle.classList.remove("hide");
+  wrapper.setAttribute("aria-expanded", "false");
+  resultsList.classList.remove("show");
+};
+
+const changeTextOfFilterButton = (e, textOfTargetedLi) => {
+  document.querySelector(".text-filter").innerHTML = textOfTargetedLi;
+};
+
+const changeOrderTextInOpenedButtonFilter = (e) => {
+  let arrayOfLi = [...document.querySelectorAll("#filter-list li")];
+  for (let i = 0; i < arrayOfLi.length; i++) {
+    if (arrayOfLi[i] === e.target) {
+      //Change texte dans le bouton fermé
+      let textOfTargetedLi = arrayOfLi[i].innerHTML;
+      changeTextOfFilterButton(e, textOfTargetedLi);
     }
+  }
+};
 
-    if (!dropDown.contains(e.target)) {
-      this.toggle(false);
-    }
-  };
+const handleItemKeyDown = (e) => {
+  e.preventDefault();
 
-  const setValue = (item) => {
-    const val = item.textContent;
-    toggler.textContent = val;
-    this.value = val;
-    this.toggle(false);
-    dropDown.dispatchEvent(new Event("change"));
-    toggler.focus();
-  };
+  if (e.key === "ArrowUp" && e.target.previousElementSibling) {
+    // up
+    e.target.previousElementSibling.focus();
+  } else if (e.key === "ArrowDown" && e.target.nextElementSibling) {
+    // down
+    e.target.nextElementSibling.focus();
+  } else if (e.key === "Enter") {
+    // enter
+    changeOrderTextInOpenedButtonFilter(e.target);
+  }
+};
 
-  const handleItemKeyDown = (e) => {
-    e.preventDefault();
 
-    if (e.keyCode === 38 && e.target.previousElementSibling) {
-      // up
-      e.target.previousElementSibling.focus();
-    } else if (e.keyCode === 40 && e.target.nextElementSibling) {
-      // down
-      e.target.nextElementSibling.focus();
-    } else if (e.keyCode === 27) {
-      // escape key
-      this.toggle(false);
-    } else if (e.keyCode === 13 || e.keyCode === 32) {
-      // enter or spacebar key
-      setValue(e.target);
-    }
-  };
 
-  const handleToggleKeyPress = (e) => {
-    e.preventDefault();
+toggle.addEventListener("click", openDrop);
 
-    if (e.keyCode === 27) {
-      // escape key
-      this.toggle(false);
-    } else if (e.keyCode === 13 || e.keyCode === 32) {
-      // enter or spacebar key
-      this.toggle(true);
-    }
-  };
-
-  toggler.addEventListener("keydown", handleToggleKeyPress);
-  toggler.addEventListener("click", () => this.toggle());
-  [...menu.children].forEach((item) => {
-    item.addEventListener("keydown", handleItemKeyDown);
-    item.addEventListener("click", () => setValue(item));
-  });
-
-  this.element = dropDown;
-
-  this.value = toggler.textContent;
-
-  this.toggle = (expand = null) => {
-    expand =
-      expand === null ? menu.getAttribute("aria-expanded") !== "true" : expand;
-
-    menu.setAttribute("aria-expanded", expand);
-
-    if (expand) {
-      toggler.classList.add("active");
-      menu.children[0].focus();
-      document.addEventListener("click", handleClickOut);
-      dropDown.dispatchEvent(new Event("opened"));
-    } else {
-      toggler.classList.remove("active");
-      dropDown.dispatchEvent(new Event("closed"));
-      document.removeEventListener("click", handleClickOut);
-    }
-  };
-}
-
-const dropDown = new DropDown(document.querySelector(".dropdown"));
-
-dropDown.element.addEventListener("change", (e) => {
-  console.log("changed", dropDown.value);
-});
-
-dropDown.element.addEventListener("opened", (e) => {
-  console.log("opened", dropDown.value);
-});
-
-dropDown.element.addEventListener("closed", (e) => {
-  console.log("closed", dropDown.value);
-});
-
-dropDown.toggle();
+resultsList.addEventListener("click", closeDrop);
+resultsList.addEventListener('keyup', (e) => handleItemKeyDown(e))

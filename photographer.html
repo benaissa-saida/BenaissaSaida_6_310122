@@ -2,69 +2,177 @@
 <html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
-    <title>Fisheye - photographe </title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    />
+    <title>Fisheye - photographe</title>
   </head>
   <body>
     <header>
       <a href="/index.html" alt="Fisheye Home page" title="logo">
-        <img src="assets/images/logo.png" class="logo" alt="logo site"/>
+        <img src="assets/images/logo.png" class="logo" alt="logo site" />
       </a>
     </header>
     <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()"  alt="croix retour"/>
+      <div class="modal">
+        <header class="contact__header">
+          <div class="contact__info">
+            <h2>Contactez-moi</h2>
+            <h3 class="photographerName"></h3>
+          </div>
+          <img
+            src="assets/icons/close.svg"
+            onclick="closeModal()"
+            alt="croix retour"
+          />
         </header>
-				<form onsubmit="sendForm(event)">
-					<div>
-						<label for="firstName">Prénom</label>
-						<input type="text" id="firstName" minlength="2" required aria-required=true/>
-					</div>
+        <form onsubmit="sendForm(event)">
           <div>
-						<label for="lastName">Nom</label>
-						<input type="text" id="lastName" minlength="2" required aria-required=true/>
-					</div>
+            <label for="firstName">Prénom</label>
+            <input
+              type="text"
+              id="firstName"
+              required
+              aria-required="true"
+              onkeyup="return firstNameValidation()"
+            />
+            <small id="error-first"></small>
+          </div>
+
           <div>
-						<label for="email">Email</label>
-						<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Invalid email address" required aria-required=true/>
-					</div>
+            <label for="lastName">Nom</label>
+            <input
+              type="text"
+              id="lastName"
+              required
+              aria-required="true"
+              onkeyup="return lastNameValidation()"
+            />
+            <small id="error-last"></small>
+          </div>
           <div>
-						<label for="message">Votre Message</label>
-						<textarea type="text" id="message"  minlength="4" required aria-required=true></textarea>
-					</div> 
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              required
+              aria-required="true"
+              onkeyup="return emailValidation()"
+            />
+            <small id="error-email"></small>
+          </div>
+
+          <div>
+            <label for="message">Votre Message</label>
+            <textarea
+              type="text"
+              id="message"
+              required
+              aria-required="true"
+              onkeyup="return messageValidation()"
+            ></textarea>
+            <small id="error-message"></small>
+          </div>
           <button class="contact_button" type="submit">Envoyer</button>
-				</form>
-			</div>
-		</div>
+        </form>
+      </div>
+    </div>
     <main id="main">
       <aside class="photograph-header">
         <div class="photographer__info"></div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal()">
+          Contactez-moi
+        </button>
         <div class="photographer__img"></div>
       </aside>
       <section>
         <div class="filter">
-          <p class="filter__by">Trier Par</p>
-          <!-- <select name="filter" id="filter-select" class="filter__selected">
-            <option value="date">Date</option>
-            <option value="popularity">Popularité</option>
-            <option value="title">Titre</option>
-          </select> -->
-          <div class="dropdown">
-            <button class="dropdown-toggle" type="button" aria-haspopup="true">Date</button>
-            <ul class="dropdown-menu" role="listbox" aria-expanded="true">
-              <li role="option" tabindex="0">Date</li>
-              <li role="option" tabindex="0">Popularité</li>
-              <li role="option" tabindex="0">Titre</li>
+          <label class="filter__by" id="order-by">Trier Par</label>
+          <div class="wrapper">
+            <button
+              class="wrapper__toggle"
+              aria-haspopup="listbox"
+              aria-labelledby="order-by"
+              role="button"
+              aria-expanded="false"
+            >
+              <span class="text-filter"> Popularité </span>
+              <span class="wrapper__toggle--arrowDown">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.12 0.453125L8 6.55979L1.88 0.453125L0 2.33312L8 10.3331L16 2.33312L14.12 0.453125Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </button>
+            <ul
+              class="filter__selected"
+              role="listbox"
+              id="filter-list"
+              tabindex="-1"
+            >
+              <li tabindex="0" class="" id="popularity" role="option">
+                Popularité
+                <span class="arrowUp"
+                  ><svg
+                    width="16"
+                    height="11"
+                    viewBox="0 0 16 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.88 10.5466L8 4.43996L14.12 10.5466L16 8.66663L8 0.66663L1.64355e-07 8.66663L1.88 10.5466Z"
+                      fill="white"
+                    /></svg
+                ></span>
+              </li>
+              <li tabindex="0" class="shortFilter" id="date" role="option">
+                Date
+                <span class="invisible"
+                  ><svg
+                    width="16"
+                    height="11"
+                    viewBox="0 0 16 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.88 10.5466L8 4.43996L14.12 10.5466L16 8.66663L8 0.66663L1.64355e-07 8.66663L1.88 10.5466Z"
+                      fill="white"
+                    /></svg
+                ></span>
+              </li>
+              <li tabindex="0" class="shortFilter" id="title" role="option">
+                Titre
+                <span class="invisible"
+                  ><svg
+                    width="16"
+                    height="11"
+                    viewBox="0 0 16 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.88 10.5466L8 4.43996L14.12 10.5466L16 8.66663L8 0.66663L1.64355e-07 8.66663L1.88 10.5466Z"
+                      fill="white"
+                    /></svg
+                ></span>
+              </li>
             </ul>
           </div>
         </div>
-        <article class="portfolio">
-        </article>
+        <article class="portfolio"></article>
       </section>
       <div class="static-insert"></div>
       <div class="lightbox"></div>
