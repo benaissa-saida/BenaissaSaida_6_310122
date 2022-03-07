@@ -6,20 +6,22 @@ function mediaFactory(data) {
 
   function createImage() {
     const img = document.createElement("img");
-    img.className = "";
+    img.className = 'picture'
+    img.dataset.src = 'img';
     img.setAttribute("src", picture);
-    img.setAttribute('loading', 'lazy')
+    img.setAttribute("loading", "lazy");
     img.setAttribute("alt", title);
     return img;
   }
 
   function createVideo() {
     const video = document.createElement("video");
-    // video.setAttribute('controls', '')
+    video.setAttribute("src", media);
+    video.className = 'picture'
+    video.dataset.src = 'video';
     const source = document.createElement("source");
     source.setAttribute("src", media);
-    source.setAttribute("preload", true);
-    source.setAttribute("loop", "");
+    source.setAttribute('alt', title)
     video.appendChild(source);
     return video;
   }
@@ -33,17 +35,17 @@ function mediaFactory(data) {
     figcaption.className = "portfolio__info--caption";
     figcaption.textContent = title;
 
-    const like = document.createElement('span');
-    like.className = 'portfolio__info--heart'
-    
-    const countLikes = document.createElement('span');
-    countLikes.className = 'heart-count'
+    const like = document.createElement("span");
+    like.className = "portfolio__info--heart";
+
+    const countLikes = document.createElement("span");
+    countLikes.className = "heart-count";
     countLikes.textContent = likes;
 
     const heart = document.createElement("i");
     heart.tabIndex = 0;
     heart.className = "hearts far fa-heart";
-    heart.ariaLabel = "likes"
+    heart.ariaLabel = "likes";
 
     like.append(countLikes, heart);
     figcaption.append(like);
@@ -55,6 +57,15 @@ function mediaFactory(data) {
     }
     return figure;
   }
+
+  // const pics = document.querySelectorAll(".picture").forEach((pic) =>
+  //   pic.addEventListener("click", (e) => {
+  //     console.log(e)
+  //     // e.preventDefault();
+  //     // console.log(e.currentTarget)
+  //     // new lightbox(e.currentTarget.getAttribute('src'));
+  //   })
+  // );
 
   return { getPortfolioDOM };
 }

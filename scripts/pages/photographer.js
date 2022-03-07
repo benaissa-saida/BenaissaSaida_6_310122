@@ -22,6 +22,13 @@ async function displayMedias(portfolio, photographer) {
     const photographerMedias = mediaFactory(media, photographer);
     const medias = photographerMedias.getPortfolioDOM();
     photographerFolio.appendChild(medias);
+
+    document.querySelectorAll(".picture").forEach((pic) =>
+      pic.addEventListener("click", (e) => {
+        e.preventDefault();  
+        new lightbox(e.currentTarget.getAttribute('src'), e.target.getAttribute("data-src"));
+      })
+    );
   });
 
   addAsFav();

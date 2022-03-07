@@ -37,7 +37,7 @@
               id="firstName"
               required
               aria-required="true"
-              onkeyup="return firstNameValidation()"
+              onkeyup="firstNameValidation()"
             />
             <small id="error-first"></small>
           </div>
@@ -49,7 +49,7 @@
               id="lastName"
               required
               aria-required="true"
-              onkeyup="return lastNameValidation()"
+              onkeyup="lastNameValidation()"
             />
             <small id="error-last"></small>
           </div>
@@ -60,7 +60,7 @@
               id="email"
               required
               aria-required="true"
-              onkeyup="return emailValidation()"
+              onkeyup="emailValidation()"
             />
             <small id="error-email"></small>
           </div>
@@ -72,7 +72,7 @@
               id="message"
               required
               aria-required="true"
-              onkeyup="return messageValidation()"
+              onkeyup="messageValidation()"
             ></textarea>
             <small id="error-message"></small>
           </div>
@@ -175,7 +175,6 @@
         <article class="portfolio"></article>
       </section>
       <div class="static-insert"></div>
-      <div class="lightbox"></div>
     </main>
     <!--Utils-->
     <script src="/scripts//utils/selectedFilter.js"></script>
