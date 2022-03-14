@@ -23,13 +23,9 @@ async function displayMedias(portfolio, photographer) {
     const medias = photographerMedias.getPortfolioDOM();
     photographerFolio.appendChild(medias);
 
-    document.querySelectorAll(".picture").forEach((pic) =>
-      pic.addEventListener("click", (e) => {
-        e.preventDefault();  
-        new lightbox(e.currentTarget.getAttribute('src'), e.target.getAttribute("data-src"));
-      })
-    );
+    openLightbox();
   });
+  nextAndPrev(photographer, portfolio);
 
   addAsFav();
 }
@@ -176,7 +172,6 @@ async function sortData(portfolio) {
 
 function closeModalOnKeyUp() {
   document.addEventListener("keyup", (e) => {
-    // console.log(e);
     if (e.key == "Escape") {
       modal.style.display = "none";
     }
@@ -199,6 +194,7 @@ async function init() {
 
   displayOnePhotographer(photographer);
   photographerName(photographer);
+  closeLightbox();
   closeModalOnKeyUp();
   displayStaticInsert(portfolio, photographer);
   sortData(portfolio);

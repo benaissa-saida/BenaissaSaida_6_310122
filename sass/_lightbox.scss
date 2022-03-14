@@ -1,5 +1,6 @@
 .lightbox {
   position: fixed;
+  display: none;
   top: 0;
   left: 0;
   width: 100%;
@@ -64,7 +65,7 @@
     right: 10px;
     z-index: 12;
   }
-  &--img {
+  &--media {
     display: flex;
     align-items: center;
     justify-content: center;

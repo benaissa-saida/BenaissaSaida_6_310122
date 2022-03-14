@@ -11,6 +11,7 @@ function mediaFactory(data) {
     img.setAttribute("src", picture);
     img.setAttribute("loading", "lazy");
     img.setAttribute("alt", title);
+    img.tabIndex = 0;
     return img;
   }
 
@@ -19,6 +20,7 @@ function mediaFactory(data) {
     video.setAttribute("src", media);
     video.className = 'picture'
     video.dataset.src = 'video';
+    video.tabIndex = 0;
     const source = document.createElement("source");
     source.setAttribute("src", media);
     source.setAttribute('alt', title)
@@ -29,7 +31,6 @@ function mediaFactory(data) {
   function getPortfolioDOM() {
     const figure = document.createElement("figure");
     figure.className = "portfolio__info";
-    figure.tabIndex = 0;
 
     const figcaption = document.createElement("figcaption");
     figcaption.className = "portfolio__info--caption";

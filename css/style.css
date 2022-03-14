@@ -291,6 +291,7 @@ form textarea:focus-visible {
 
 .lightbox {
   position: fixed;
+  display: none;
   top: 0;
   left: 0;
   width: 100%;
@@ -354,7 +355,7 @@ form textarea:focus-visible {
   right: 10px;
   z-index: 12;
 }
-.lightbox__container--img {
+.lightbox__container--media {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -362,7 +363,7 @@ form textarea:focus-visible {
   margin-left: 50px;
   margin-right: 50px;
 }
-.lightbox__container--img img, .lightbox__container--img video {
+.lightbox__container--media img, .lightbox__container--media video {
   max-width: 100%;
   max-height: 900px;
   object-fit: cover;
