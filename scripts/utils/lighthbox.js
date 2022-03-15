@@ -35,19 +35,18 @@ function addMediaAfterClick(i, pics, photographer, portfolio) {
     `;
   }
 }
-function openLightbox() {
+function openLightbox(photographer, portfolio) {
   openLightboxOnKeyup();
   document.querySelectorAll(".picture").forEach((pic) =>
     pic.addEventListener("click", (e) => {
       e.preventDefault();
-
       lightBox(
         e.currentTarget.getAttribute("src"),
         e.target.getAttribute("data-src")
       );
+      nextAndPrev(e.currentTarget.getAttribute("src"), photographer, portfolio);
     })
   );
-  // nextAndPrev(arrayofPics);
 }
 
 function openLightboxOnKeyup() {
@@ -85,25 +84,39 @@ function closeLightboxOnKeyUp() {
   });
 }
 
-function nextAndPrev(photographer, portfolio) {
-  let arrayofPics = document.querySelectorAll(".picture");
-  let i = 0;
 
-  //il reste a définir la place exacte de l'image afin que la lightbox fonctionne 
+function nextAndPrev(url, photographer, portfolio) {
+  const pics = Array.from(document.querySelectorAll(".picture"));
+  const gallery = pics.map((pic) => pic.getAttribute("src"));
+  let i = gallery.findIndex((pic) => pic === url);
 
+  nextAndPrevOnKeyUp(i, gallery, pics, photographer, portfolio)
   const btnNext = document.querySelector(".lightbox__container--next");
   btnNext.addEventListener("click", () => {
     i++;
-    if (i == arrayofPics.length) i = 0;
-    addMediaAfterClick(i, arrayofPics, photographer, portfolio);
+    if (i == gallery.length) i = 0;
+    addMediaAfterClick(i, pics, photographer, portfolio);
   });
 
   const btnPrev = document.querySelector(".lightbox__container--prev");
   btnPrev.addEventListener("click", () => {
     i--;
-    if (i == -1) i = i.length - 1;
-    console.log("prev");
+    if (i == -1) i = gallery.length - 1;
+    addMediaAfterClick(i, pics, photographer, portfolio);
   });
+}
 
-
+function nextAndPrevOnKeyUp(i, gallery, pics, photographer, portfolio) {
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "ArrowRight") {
+      i++;
+      if (i == gallery.length) i = 0;
+      addMediaAfterClick(i, pics, photographer, portfolio);
+    }
+    if (e.key === "ArrowLeft" || e.key === "Backspace") {
+      i--;
+      if (i == -1) i = gallery.length - 1;
+      addMediaAfterClick(i, pics, photographer, portfolio);
+    }
+  });
 }

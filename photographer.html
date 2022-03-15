@@ -31,10 +31,11 @@
         </header>
         <form onsubmit="sendForm(event)">
           <div>
-            <label for="firstName">Prénom</label>
+            <label for="firstName" title="firstName">Prénom</label>
             <input
               type="text"
               id="firstName"
+              name="firstName"
               required
               aria-required="true"
               onkeyup="firstNameValidation()"
@@ -43,10 +44,11 @@
           </div>
 
           <div>
-            <label for="lastName">Nom</label>
+            <label for="lastName" title="lastName">Nom</label>
             <input
               type="text"
               id="lastName"
+              name="lastName"
               required
               aria-required="true"
               onkeyup="lastNameValidation()"
@@ -54,10 +56,11 @@
             <small id="error-last"></small>
           </div>
           <div>
-            <label for="email">Email</label>
+            <label for="email" title="email">Email</label>
             <input
               type="email"
               id="email"
+              name="email"
               required
               aria-required="true"
               onkeyup="emailValidation()"
@@ -66,10 +69,11 @@
           </div>
 
           <div>
-            <label for="message">Votre Message</label>
+            <label for="message" title="message">Votre Message</label>
             <textarea
               type="text"
               id="message"
+              name="message"
               required
               aria-required="true"
               onkeyup="messageValidation()"

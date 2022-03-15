@@ -22,10 +22,10 @@ async function displayMedias(portfolio, photographer) {
     const photographerMedias = mediaFactory(media, photographer);
     const medias = photographerMedias.getPortfolioDOM();
     photographerFolio.appendChild(medias);
-
-    openLightbox();
   });
-  nextAndPrev(photographer, portfolio);
+  openLightbox(photographer, portfolio);
+
+  // nextAndPrev(photographer, portfolio);
 
   addAsFav();
 }

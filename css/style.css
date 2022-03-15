@@ -303,12 +303,13 @@ form textarea:focus-visible {
 }
 .lightbox__container {
   position: relative;
-  top: 0;
-  left: 0;
-  padding: 0 5em;
-  width: 75%;
   z-index: 10;
   transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin: 0 50px;
+  min-height: 100vh;
 }
 
 .open {
