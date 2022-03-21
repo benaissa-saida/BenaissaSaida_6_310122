@@ -1,9 +1,13 @@
+//fonction permettant de gérer  les mécanismes de création de médias
 function mediaFactory(data) {
-  const { image, photographerId, title, video, likes, id } = data;
+  // création de constantes contenus dans la data
+  const { image, photographerId, title, video, likes, id} = data;
 
+  //creéation du src pour les images et les videos
   const picture = `assets/images/${photographerId}/${image}`;
   const media = `assets/images/${photographerId}/${video}`;
 
+  //fonction de création de l'image
   function createImage() {
     const img = document.createElement("img");
     img.className = 'picture'
@@ -15,6 +19,7 @@ function mediaFactory(data) {
     return img;
   }
 
+  //fonction de création de la vidéo
   function createVideo() {
     const video = document.createElement("video");
     video.setAttribute("src", media);
@@ -28,6 +33,7 @@ function mediaFactory(data) {
     return video;
   }
 
+  // création du portfolio de notre photographe
   function getPortfolioDOM() {
     const figure = document.createElement("figure");
     figure.className = "portfolio__info";
@@ -42,31 +48,28 @@ function mediaFactory(data) {
     const countLikes = document.createElement("span");
     countLikes.className = "heart-count";
     countLikes.textContent = likes;
+    countLikes.ariaLabel = "nombre de j'aime";
 
     const heart = document.createElement("i");
     heart.tabIndex = 0;
     heart.className = "hearts far fa-heart";
-    heart.ariaLabel = "likes";
+    heart.ariaLabel = "j'aime";
 
     like.append(countLikes, heart);
     figcaption.append(like);
 
+    //si le média est une image
     if (image) {
+      //création du figure qui contiendra l'image ainsi que la figcaption
       figure.append(createImage(), figcaption);
     } else {
+      //sinon ça sera la vidéo
       figure.append(createVideo(), figcaption);
     }
     return figure;
   }
 
-  // const pics = document.querySelectorAll(".picture").forEach((pic) =>
-  //   pic.addEventListener("click", (e) => {
-  //     console.log(e)
-  //     // e.preventDefault();
-  //     // console.log(e.currentTarget)
-  //     // new lightbox(e.currentTarget.getAttribute('src'));
-  //   })
-  // );
-
+  //on retourne la fonction de création du portfolio
+  //afin de pouvoir la réutiliser
   return { getPortfolioDOM };
 }

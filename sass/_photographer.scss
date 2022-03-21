@@ -293,3 +293,11 @@ form {
     }
   }
 }
+
+@media (min-width: 768px) and (max-width: 1345px) {
+  .portfolio{
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-column-gap: 0;
+
+  }
+}

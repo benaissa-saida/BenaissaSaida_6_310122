@@ -115,6 +115,7 @@ function messageValidation() {
 }
 
 function sendForm(e) {
+  const contact = getData();
   e.preventDefault();
   let firstNameValid = false;
   lastNameValid = false;

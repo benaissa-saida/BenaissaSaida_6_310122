@@ -1,13 +1,18 @@
+//fonction permettant de gérer  les mécanismes de création des photographes
 function photographerFactory(data) {
+  // création de constantes contenus dans la data
   const { name, portrait, id, city, country, tagline, price} = data;
 
+  //creéation du src pour les images et les videos
   const picture = `assets/photographers/${portrait}`;
 
+  //fonction de création d'une card photographe
   function getUserCardDOM() {
     const article = document.createElement("article");
 
     const anchor = document.createElement("a");
     anchor.href = `photographer.html?id=${id}`;
+    anchor.title = `lien vers le photographe ${name}`
 
     const profileInfo = document.createElement("div");
     profileInfo.className = "profile__info";
@@ -33,12 +38,16 @@ function photographerFactory(data) {
     profilePrice.className = "profile__info--price";
     profilePrice.textContent = price + "€/jour";
 
-    article.append(anchor, profileInfo);
-    anchor.append(img, profileName);
     profileInfo.append(profileLocation, profileTagline, profilePrice);
+    anchor.append(img, profileName);
+
+    //l'article précedemment crée contiendra le lien vers un photographe 
+    //ainsi que ses infos
+    article.append(anchor, profileInfo);
     return article;
   }
 
+  //fonction pour avoir les infos d'un photographe
   function getOneUserInfo() {
     const profileInfo = document.createElement("div");
     profileInfo.className = "profile__info";
@@ -58,6 +67,7 @@ function photographerFactory(data) {
     return profileInfo;
   }
 
+  //fonction pour avoir l'image d'un photographe
   function getOneUserImg() {
     const img = document.createElement("img");
     img.setAttribute("src", picture);
@@ -65,5 +75,6 @@ function photographerFactory(data) {
     return img;
   }
 
+  //on retourne les fonctions afin de pouvoir la réutiliser
   return { getUserCardDOM, getOneUserInfo, getOneUserImg };
 }
