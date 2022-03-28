@@ -12,6 +12,7 @@ const regNoNum =
 
 function displayModal() {
   modal.style.display = "flex";
+  first.focus()
 }
 
 function closeModal() {
