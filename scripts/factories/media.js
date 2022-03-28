@@ -23,12 +23,12 @@ function mediaFactory(data) {
   function createVideo() {
     const video = document.createElement("video");
     video.setAttribute("src", media);
+    video.setAttribute('alt', title)
     video.className = 'picture'
     video.dataset.src = 'video';
     video.tabIndex = 0;
     const source = document.createElement("source");
     source.setAttribute("src", media);
-    source.setAttribute('alt', title)
     video.appendChild(source);
     return video;
   }
