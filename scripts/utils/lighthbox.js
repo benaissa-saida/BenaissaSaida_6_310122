@@ -1,18 +1,18 @@
 function lightBox(title, url, attribute) {
-  constructor(url, attribute);
+  constructor(title, url, attribute);
 
   //fonction de construction de notre lighthbox
-  function constructor(url, attribute) {
+  function constructor(title, url, attribute) {
     //création d'une valeur globale qui va nous faire construire
     //notre lightbox
-    this.element = buildContainer(url, attribute);
+    this.element = buildContainer(title, url, attribute);
 
     //et il sera ensuite contenu dans le container créer pour.
     document.querySelector(".lightbox__container").appendChild(element);
   }
 
   //contruit notre container qui aura les différents médias.
-  function buildContainer(url, attribute) {
+  function buildContainer(title, url, attribute) {
     const dom = document.querySelector(".lightbox__container--media");
     const lightbox = document.querySelector(".lightbox");
 
@@ -28,8 +28,8 @@ function lightBox(title, url, attribute) {
     } else {
       dom.innerHTML = `
         <figure data-media="video">
-          <video controls preload loop autoplay alt="${title}" tabIndex="0">
-            <source src="${url}"/>
+          <video controls preload loop autoplay  tabIndex="0">
+            <source src="${url}" alt="${title}"/>
           </video>
           <figcaption class="portfolio__info--caption">${title}</figcaption>
         </figure>
@@ -54,8 +54,8 @@ function addMediaAfterClick(i, pics, photographer, portfolio) {
   if (pics[i].src.includes(".mp4")) {
     container.innerHTML = `
       <figure data-media="video">
-        <video controls preload loop autoplay alt="${portfolio[i].title}" tabIndex="0">
-          <source src="assets/images/${photographer.id}/${portfolio[i].video}" />
+        <video controls preload loop autoplay tabIndex="0">
+          <source src="assets/images/${photographer.id}/${portfolio[i].video}" alt="${portfolio[i].title}" />
         </video>
         <figcaption class="portfolio__info--caption">${portfolio[i].title}</figcaption>
       </figure>
@@ -75,7 +75,8 @@ function openLightbox(photographer, portfolio) {
     pic.addEventListener("click", (e) => {
       e.preventDefault();
       lightBox(
-        e.target.alt,
+        //alt media
+        e.currentTarget.getAttribute("alt"),
         //url du média
         e.currentTarget.getAttribute("src"),
         //attribut du média
@@ -95,7 +96,7 @@ function openLightboxOnKeyup(photographer, portfolio) {
       e.preventDefault();
       if (e.key == "Enter") {
         lightBox(
-          e.target.alt,
+          e.currentTarget.getAttribute("alt"),
           e.currentTarget.getAttribute("src"),
           e.target.getAttribute("data-src")
         );

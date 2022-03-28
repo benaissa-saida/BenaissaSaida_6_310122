@@ -3,7 +3,7 @@ async function displayOnePhotographer(photographer) {
   const photographerInfo = document.querySelector(".photographer__info");
   const photographerImg = document.querySelector(".photographer__img");
 
-  //on cherche le nom de chaque photographe pour le mettre 
+  //on cherche le nom de chaque photographe pour le mettre
   //dans le modal de contact
   const name = document.querySelector(".photographerName");
   name.textContent = photographer.name;
@@ -28,6 +28,8 @@ async function displayMedias(portfolio, photographer) {
     const medias = photographerMedias.getPortfolioDOM();
     photographerFolio.appendChild(medias);
   });
+  // let pictures = document.querySelectorAll(".picture");
+
   //fonction qui fera ouvrir la lightbox afin de mieux voir les médias
   openLightbox(photographer, portfolio);
 
@@ -35,7 +37,7 @@ async function displayMedias(portfolio, photographer) {
   addAsFav();
 }
 
-// fonction qui permet d'afficher le petit encart du prix et des coeurs 
+// fonction qui permet d'afficher le petit encart du prix et des coeurs
 async function displayStaticInsert(portfolio, photographer) {
   const photographerStaticInsert = document.querySelector(".static-insert");
   photographerStaticInsert.tabIndex = 0;
@@ -43,13 +45,12 @@ async function displayStaticInsert(portfolio, photographer) {
   const priceText = document.createElement("span");
   price = photographer.price;
   priceText.textContent = price + "€/jour";
-  priceText.tabIndex = 0
-  priceText.ariaLabel = `${price} €/jour`
+  priceText.tabIndex = 0;
+  priceText.ariaLabel = `${price} €/jour`;
 
   const likes = document.createElement("span");
   likes.className = "static-insert__likes";
-  likes.tabIndex = 0
-  
+  likes.tabIndex = 0;
 
   const totalCount = document.createElement("span");
   totalCount.className = "total-hearts";
@@ -57,9 +58,9 @@ async function displayStaticInsert(portfolio, photographer) {
     return acc + curr.likes;
   }, 0);
   totalCount.textContent = totalLikes;
-  
+
   //aria label pour avoir le total de like
-  likes.ariaLabel = `${this.totalLikes} j'aimes`
+  likes.ariaLabel = `${this.totalLikes} j'aimes`;
 
   const heart = document.createElement("i");
   heart.className = "fas fa-heart";
@@ -84,7 +85,7 @@ async function addAsFav() {
   this.allHearts = [...hearts];
   let totalLikes = this.totalLikes;
 
-  //boucle qui permet de rentrer dans chacun de nos coeurs contenus dans l'array 
+  //boucle qui permet de rentrer dans chacun de nos coeurs contenus dans l'array
   allHearts.forEach((heart) => {
     let addedToFav = false;
 
@@ -93,7 +94,8 @@ async function addAsFav() {
       //permet de selectionner le parent de notre coeur
       let selectedLike = e.target.parentNode;
       const likeSpan = selectedLike.querySelector(".heart-count");
-      if (!addedToFav) { // s'il y a un click
+      if (!addedToFav) {
+        // s'il y a un click
         addedToFav = true;
         //on ajoute 1 à notre span contenant le total de like d'une image
         likeSpan.textContent = parseInt(likeSpan.textContent) + 1;
@@ -114,7 +116,7 @@ async function addAsFav() {
       }
     };
 
-    //ca se fera au click ou lorsqu'on tape sur entrer dans le clavier 
+    //ca se fera au click ou lorsqu'on tape sur entrer dans le clavier
     heart.addEventListener("click", (e) => {
       console.log("heart");
       fillHeart(e);
@@ -126,7 +128,7 @@ async function addAsFav() {
 }
 
 //fonction qui permet de trier les datas
-async function sortData(portfolio) {
+async function sortData(portfolio, photographer) {
   medias = portfolio;
   let dateSelected = true;
   let popularitySelected = true;
@@ -142,14 +144,17 @@ async function sortData(portfolio) {
   const sortByDate = (e) => {
     closeDrop(); // ferme le drop
     changeOrderText(e); //change le texte du button
-    if (dateSelected) { // si date selectionné 
+    if (dateSelected) {
+      // si date selectionné
       //alors on trie en fonction des dates
       mediasSortByDate = medias.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
       });
       portfolio = mediasSortByDate;
       document.querySelector(".portfolio").innerHTML = ""; // on vide le portfolio
-      displayMedias(portfolio); // avant d'afficher le nouveau portfolio
+      document.querySelectorAll(".picture").innerHTML = "";
+
+      displayMedias(portfolio, photographer); // avant d'afficher le nouveau portfolio
     }
   };
 
@@ -159,12 +164,14 @@ async function sortData(portfolio) {
     if (titleSelected) {
       mediasSortByTitle = medias.sort((a, b) => {
         //trie les titres par ordre alphabétique
-        // si a > b alors 1 equivaut à plus grand sinon -1 équivaut à plus petit 
-        return a.title > b.title ? 1 : -1; 
+        // si a > b alors 1 equivaut à plus grand sinon -1 équivaut à plus petit
+        return a.title > b.title ? 1 : -1;
       });
       portfolio = mediasSortByTitle;
       document.querySelector(".portfolio").innerHTML = "";
-      displayMedias(portfolio);
+      document.querySelectorAll(".picture").innerHTML = "";
+
+      displayMedias(portfolio, photographer);
     }
   };
 
@@ -177,7 +184,9 @@ async function sortData(portfolio) {
       });
       portfolio = mediasSortByPopularity;
       document.querySelector(".portfolio").textContent = "";
-      displayMedias(portfolio);
+      document.querySelectorAll(".picture").innerHTML = "";
+
+      displayMedias(portfolio, photographer);
     }
   };
 
@@ -215,13 +224,12 @@ function closeModalOnKeyUp() {
   });
 }
 
-//fonction d'init pour initialiser toutes nos fonctions 
+//fonction d'init pour initialiser toutes nos fonctions
 async function init() {
   // on va chercher dans le query l'id de notre photographe
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const photographerID = urlParams.get("id");
-
 
   // Récupère les datas du photographe
   const photographersApi = new PhotographerApi("/data/photographers.json");
@@ -238,7 +246,7 @@ async function init() {
   closeLightbox();
   closeModalOnKeyUp();
   displayStaticInsert(portfolio, photographer);
-  sortData(portfolio);
+  sortData(portfolio, photographer);
   displayMedias(portfolio, photographer);
 }
 
