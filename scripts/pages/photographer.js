@@ -152,7 +152,6 @@ async function sortData(portfolio, photographer) {
       });
       portfolio = mediasSortByDate;
       document.querySelector(".portfolio").innerHTML = ""; // on vide le portfolio
-      document.querySelectorAll(".picture").innerHTML = "";
 
       displayMedias(portfolio, photographer); // avant d'afficher le nouveau portfolio
     }
@@ -169,7 +168,6 @@ async function sortData(portfolio, photographer) {
       });
       portfolio = mediasSortByTitle;
       document.querySelector(".portfolio").innerHTML = "";
-      document.querySelectorAll(".picture").innerHTML = "";
 
       displayMedias(portfolio, photographer);
     }
@@ -184,7 +182,6 @@ async function sortData(portfolio, photographer) {
       });
       portfolio = mediasSortByPopularity;
       document.querySelector(".portfolio").textContent = "";
-      document.querySelectorAll(".picture").innerHTML = "";
 
       displayMedias(portfolio, photographer);
     }
